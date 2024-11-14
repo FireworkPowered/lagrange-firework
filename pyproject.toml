@@ -27,9 +27,11 @@ classifiers = [
 requires-python = ">=3.9"
 
 [project.optional-dependencies]
-faster = ["ftea>=0.1.8"]
 loguru = [
     "loguru>=0.7.2",
+]
+rtea = [
+    "rtea @ git+https://github.com/FireworkPowered/rtea",
 ]
 
 [tool.pdm]
@@ -60,4 +62,4 @@ pythonPlatform = "All"
 pythonVersion = "3.9"
 typeCheckingMode = "basic"
 reportShadowedImports = false
-disableBytesTypePromotions = true
+disableBytesTypePromotions = false

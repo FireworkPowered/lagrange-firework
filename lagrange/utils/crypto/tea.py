@@ -89,27 +89,34 @@ class _TEA:
             precrypt = text[i : i + 8]
             ret += x
         if ret[-7:] != b"\0" * 7:
-            return None
+            raise RuntimeError("Invalid padding, expect tailing seven `\\x00`")
+
         return ret[pos + 1 : -7]
 
 
-def qqtea_encrypt(data: bytes, key: bytes) -> bytes:
-    return _TEA(key).encrypt(data)
+def qqtea_encrypt(text: bytes, key: bytes) -> bytes:
+    return _TEA(key).encrypt(text)
 
 
-def qqtea_decrypt(data: bytes, key: bytes) -> bytes:
-    return _TEA(key).decrypt(data)
+def qqtea_decrypt(text: bytes, key: bytes) -> bytes:
+    return _TEA(key).decrypt(text)
+
+
+# try:
+#     from ftea import TEA as FTEA
+
+#     def qqtea_encrypt(data: bytes, key: bytes) -> bytes:
+#         return FTEA(key).encrypt_qq(data)
+
+#     def qqtea_decrypt(data: bytes, key: bytes) -> bytes:
+#         return FTEA(key).decrypt_qq(data)
+
+# except ImportError:
+#     # Leave the pure Python version in place.
+#     pass
 
 
 try:
-    from ftea import TEA as FTEA
-
-    def qqtea_encrypt(data: bytes, key: bytes) -> bytes:
-        return FTEA(key).encrypt_qq(data)
-
-    def qqtea_decrypt(data: bytes, key: bytes) -> bytes:
-        return FTEA(key).decrypt_qq(data)
-
+    from rtea import qqtea_decrypt, qqtea_encrypt
 except ImportError:
-    # Leave the pure Python version in place.
     pass

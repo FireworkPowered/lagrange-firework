@@ -2,10 +2,10 @@
 # It is not intended for manual editing.
 
 [metadata]
-groups = ["default", "dev", "faster", "loguru"]
+groups = ["default", "dev", "faster", "loguru", "rtea"]
 strategy = ["cross_platform", "inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:05857178b23a4a0aebec273b8d34a6145031bff65a99ca805c4824d453ceba99"
+content_hash = "sha256:257d68eda62992130000b6944be98b1c399a887280fd8b8ec756211911b73498"
 
 [[metadata.targets]]
 requires_python = ">=3.9"
@@ -119,61 +119,6 @@ files = [
 ]
 
 [[package]]
-name = "ftea"
-version = "0.1.8"
-requires_python = ">=3.6"
-summary = "tea encrypt and decrypt"
-groups = ["faster"]
-files = [
-    {file = "ftea-0.1.8-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:68da541af8d77e75b618dee9ee686a7e7712edc5c752cbb0f4e3ba2d4ca2812f"},
-    {file = "ftea-0.1.8-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:e9dd4ff99c21f8ea4eed18404304dcae624894dd577f7fa8a4d9ba96cd0dbea0"},
-    {file = "ftea-0.1.8-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:b8e257ab4281385498c7f3196bb0147289b9310099454d168354e8cb4a4d80bb"},
-    {file = "ftea-0.1.8-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:7754eefe4ff788ede5d333da3c0d8d2f7e7c6e31adbaf8c6eac9380ecd255651"},
-    {file = "ftea-0.1.8-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:bce154fc832c3fb1f7c1a5cfda41a3b4cbe07c8fa974f3ada2a1b829d44e55cf"},
-    {file = "ftea-0.1.8-cp310-cp310-musllinux_1_1_aarch64.whl", hash = "sha256:a4fa9cdd5062ff4e36cc9a6529bec13a0ee6a4610e4b5f0c331f623777ffcdc7"},
-    {file = "ftea-0.1.8-cp310-cp310-musllinux_1_1_x86_64.whl", hash = "sha256:a6b33c5d9309aadce9cadd9b868c4406912ea1f9fd1410da5625c31c91825d90"},
-    {file = "ftea-0.1.8-cp310-cp310-win32.whl", hash = "sha256:2333dda8900de9fff73f53cd579a6e0f84453550278054f2aad4294f47a4cf88"},
-    {file = "ftea-0.1.8-cp310-cp310-win_amd64.whl", hash = "sha256:ffb55930b3e684687d008a981d73938fc69e589109db9582c63c4e386bd3e48b"},
-    {file = "ftea-0.1.8-cp311-cp311-macosx_10_9_universal2.whl", hash = "sha256:60f4701be6ab9b21ff796418a9db2c9add727d757ff58b8f7e1fb4f743793d71"},
-    {file = "ftea-0.1.8-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:b65a952d8938fc9a1fc0ed896da20c5ca7b99e6d2199c287cce78d1dceb4b419"},
-    {file = "ftea-0.1.8-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:6c6476c6bf1466a01499ef4b9755da277ac92963690261d70a2f643ed7ee533f"},
-    {file = "ftea-0.1.8-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:664105fe511ca5fdeaf4a0f7c4e8f41a1c0ab846f242c058c3e96ea6261e398e"},
-    {file = "ftea-0.1.8-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:721d0eca4f714a8f9e57c214e33238f91526fb6da02be4ec76e9f107abf07ed7"},
-    {file = "ftea-0.1.8-cp311-cp311-musllinux_1_1_aarch64.whl", hash = "sha256:dd4850dd15e126c963ba45d54e842984934bbe4ca30fc779663eb84ab371fa11"},
-    {file = "ftea-0.1.8-cp311-cp311-musllinux_1_1_x86_64.whl", hash = "sha256:f7f94d0cee94af5eb4f9239b4d05975348f5acbe08a95160bd015e073a19c255"},
-    {file = "ftea-0.1.8-cp311-cp311-win32.whl", hash = "sha256:19f9db0b8f788ab70f9c2bc1483985da7ce838d2c900c41f5944ad2bcbaf3669"},
-    {file = "ftea-0.1.8-cp311-cp311-win_amd64.whl", hash = "sha256:7692536861399982e62ff258fdbf61b252521137209978e3bcc23b5cb1a7c1f2"},
-    {file = "ftea-0.1.8-cp312-cp312-macosx_10_9_universal2.whl", hash = "sha256:6d04146e38d547e9e0cc15a7f1aef40f3adfb4bb1c6438c458c9082970429035"},
-    {file = "ftea-0.1.8-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:aa319f60dc867555a3814085b5eebc084e19bd5ff569e18bf91b3f0ed59b3981"},
-    {file = "ftea-0.1.8-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:2dd920b4686db4652d9c961f87a0e164f8debca398e6c8fde5ad1b9d42423254"},
-    {file = "ftea-0.1.8-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:aad5b49b97c20883068ed461f6de6244d8b9b8f3db0ac6a942227bea864523c2"},
-    {file = "ftea-0.1.8-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:74cd39dffc1abebd8b1600ecd8b4eae5dd6426e7c9e84d61f3081ed4dc42ce0a"},
-    {file = "ftea-0.1.8-cp312-cp312-musllinux_1_1_aarch64.whl", hash = "sha256:73d901069e7aeb4b687d441450dcf4f4d666f5b4b5acd7bb2e3f07cc9f9da7e8"},
-    {file = "ftea-0.1.8-cp312-cp312-musllinux_1_1_x86_64.whl", hash = "sha256:a0ac102da0a8ceef373fda8f680fe83c3a9fa0ddd05dc79ca4add6d7284aca48"},
-    {file = "ftea-0.1.8-cp312-cp312-win32.whl", hash = "sha256:0ba42ff90d6b6c8dad0ab42b9cb87645ce992a1fdfe726e8d512bab98680d475"},
-    {file = "ftea-0.1.8-cp312-cp312-win_amd64.whl", hash = "sha256:405735c1b978f98ecf87402da922196a5edf7e383c485e7c558ddc562bbe026c"},
-    {file = "ftea-0.1.8-cp39-cp39-macosx_10_9_universal2.whl", hash = "sha256:6968bcdfa381f0dfc9bc4e412acc9fac3ce0864c9100487aa16383e4a4b25405"},
-    {file = "ftea-0.1.8-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:7713eb30c0395358de1b153e38b6bf401a6336f74d744a02248dc1469bccd36b"},
-    {file = "ftea-0.1.8-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:dfdbc9a014b62f777fde84734c245ac7ed22474ed4fe449c93d0bcf83d215b55"},
-    {file = "ftea-0.1.8-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:427d445653a458d52e639f74c9c7758a99ba60a86fc801127e82cc5309767291"},
-    {file = "ftea-0.1.8-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:95c2a5422043c63bd63ab7a87cfa931797fca99bae3e47671ff73be872fe8f06"},
-    {file = "ftea-0.1.8-cp39-cp39-musllinux_1_1_aarch64.whl", hash = "sha256:d37a51192ebe21382616bf0735657bfe4cbe9c7d90e4764ed86687209c7ae2a8"},
-    {file = "ftea-0.1.8-cp39-cp39-musllinux_1_1_x86_64.whl", hash = "sha256:760d4f6f0b016ad31f52a52135bf23d2831bb6ec9d0dee3568179c1e2059e8c9"},
-    {file = "ftea-0.1.8-cp39-cp39-win32.whl", hash = "sha256:f141b17abd46b28824e427320893a1de73236422e384d0e80cc5259911b23a9f"},
-    {file = "ftea-0.1.8-cp39-cp39-win_amd64.whl", hash = "sha256:5b4df574818da69ecce50f22293415a597bb62fd462824e0cc6dd35094316904"},
-    {file = "ftea-0.1.8-pp310-pypy310_pp73-macosx_10_9_x86_64.whl", hash = "sha256:d1f56f3f7e3fb11fe65ad51443b45d11823ca8c8de6f98b4b44adc4a84326edc"},
-    {file = "ftea-0.1.8-pp310-pypy310_pp73-macosx_11_0_arm64.whl", hash = "sha256:549bc312dba0ffca5746f59b0b9d6ef429e352e3b3e9f03e19f32bc0f3695af8"},
-    {file = "ftea-0.1.8-pp310-pypy310_pp73-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:38ca38c436e2a745f818604eb345ca0fe73a17ebaed4e1968b9ec598fc94857a"},
-    {file = "ftea-0.1.8-pp310-pypy310_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:c4c8905eeac08ca4f008ec23276b7e763660655cf1ae99b867ca9a1129959caf"},
-    {file = "ftea-0.1.8-pp310-pypy310_pp73-win_amd64.whl", hash = "sha256:d7acea55995a8a60d4f4fa34648ec5a2051a5e8b72492e23fd14b943eb4c08df"},
-    {file = "ftea-0.1.8-pp39-pypy39_pp73-macosx_10_9_x86_64.whl", hash = "sha256:345a559888d6b3c83bebc8b89bb61b24053b182ee11ea09ca89e27ae0bcb59b2"},
-    {file = "ftea-0.1.8-pp39-pypy39_pp73-macosx_11_0_arm64.whl", hash = "sha256:5fd022b58920c75c7f26929d774e3538ebd0a784e16cdf46d086dd1ba924a05c"},
-    {file = "ftea-0.1.8-pp39-pypy39_pp73-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:b8d5a7fa04907ded382103629c8ba7f5c199e6a1f07fe5018f6c0978a9ca732b"},
-    {file = "ftea-0.1.8-pp39-pypy39_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:bbe17b29cdd04fdd1d112db314eed5e142f7495f65d6771f9c814f67f630ea6b"},
-    {file = "ftea-0.1.8-pp39-pypy39_pp73-win_amd64.whl", hash = "sha256:2a2e7831f7755493ffa4c1050214054058ae513559aac6abd645f23d5ee94096"},
-]
-
-[[package]]
 name = "loguru"
 version = "0.7.2"
 requires_python = ">=3.5"
@@ -214,6 +159,15 @@ files = [
     {file = "qrcode-8.0-py3-none-any.whl", hash = "sha256:9fc05f03305ad27a709eb742cf3097fa19e6f6f93bb9e2f039c0979190f6f1b1"},
     {file = "qrcode-8.0.tar.gz", hash = "sha256:025ce2b150f7fe4296d116ee9bad455a6643ab4f6e7dce541613a4758cbce347"},
 ]
+
+[[package]]
+name = "rtea"
+version = "0.3.5"
+requires_python = ">=3.7"
+git = "https://github.com/FireworkPowered/rtea"
+revision = "70bf72d380da0a1c1d7045cd6a96a9458c12b04b"
+summary = "Bring fast TEA cipher to Python. Powered by Rust."
+groups = ["rtea"]
 
 [[package]]
 name = "typing-extensions"
