@@ -75,7 +75,7 @@ class _TEA:
             result += tr
         return bytes(result)
 
-    def decrypt(self, text: bytes) -> Optional[bytes]:  # v不可变
+    def decrypt(self, text: bytes) -> bytes:  # v不可变
         data_len = len(text)
         plain = _tea_decipher(text, self.secret_key)
         pos = (plain[0] & 0x07) + 2
@@ -88,6 +88,7 @@ class _TEA:
             plain = _xor(x, precrypt)
             precrypt = text[i : i + 8]
             ret += x
+
         if ret[-7:] != b"\0" * 7:
             raise RuntimeError("Invalid padding, expect tailing seven `\\x00`")
 
