@@ -14,9 +14,7 @@ class PBGetGrpMsgRequest(ProtoStruct):
     direction: bool = proto_field(2, default=True)
 
     @classmethod
-    def build(
-        cls, grp_id: int, start_seq: int, end_seq: int, direction=True
-    ) -> "PBGetGrpMsgRequest":
+    def build(cls, grp_id: int, start_seq: int, end_seq: int, direction=True) -> "PBGetGrpMsgRequest":
         return cls(
             body=GetGrpMsgReqBody(grp_id=grp_id, start_seq=start_seq, end_seq=end_seq),
             direction=direction,
@@ -64,9 +62,7 @@ class PBRenameMemberRequest(ProtoStruct):
 
     @classmethod
     def build(cls, grp_id: int, target_uid: str, name: str) -> "PBRenameMemberRequest":
-        return cls(
-            grp_id=grp_id, rename_f3=RenameMemberRequestF3(uid=target_uid, name=name)
-        )
+        return cls(grp_id=grp_id, rename_f3=RenameMemberRequestF3(uid=target_uid, name=name))
 
 
 class PBLeaveGroupRequest(ProtoStruct):
@@ -155,14 +151,10 @@ class PBHandleGroupRequest(ProtoStruct):
     body: HandleGrpReqBody = proto_field(2)
 
     @classmethod
-    def build(
-        cls, action: int, seq: int, event_type: int, grp_id: int, message: str
-    ) -> "PBHandleGroupRequest":
+    def build(cls, action: int, seq: int, event_type: int, grp_id: int, message: str) -> "PBHandleGroupRequest":
         return cls(
             action=action,
-            body=HandleGrpReqBody(
-                seq=seq, event_type=event_type, grp_id=grp_id, message=message
-            ),
+            body=HandleGrpReqBody(seq=seq, event_type=event_type, grp_id=grp_id, message=message),
         )
 
 
@@ -175,9 +167,7 @@ class PBSendGrpReactionReq(ProtoStruct):
     f7: int = proto_field(7, default=0)
 
     @classmethod
-    def build(
-        cls, grp_id: int, seq: int, content: Union[str, int]
-    ) -> "PBSendGrpReactionReq":
+    def build(cls, grp_id: int, seq: int, content: Union[str, int]) -> "PBSendGrpReactionReq":
         return cls(
             grp_id=grp_id,
             seq=seq,
@@ -198,9 +188,7 @@ class PBGroupMuteMemberRequest(ProtoStruct):
 
     @classmethod
     def build(cls, grp_id: int, uid: str, duration: int) -> "PBGroupMuteMemberRequest":
-        return cls(
-            grp_id=grp_id, body=GroupMuteMemberReqBody(uid=uid, duration=duration)
-        )
+        return cls(grp_id=grp_id, body=GroupMuteMemberReqBody(uid=uid, duration=duration))
 
 
 # class PBGroupKickMemberRequest(ProtoStruct):
@@ -231,12 +219,8 @@ class PBGroupKickMemberRequest(ProtoStruct):
     body: GroupKickMemberReqBody = proto_field(2)
 
     @classmethod
-    def build(
-        cls, grp_id: int, uin: int, permanent: bool
-    ) -> "PBGroupKickMemberRequest":
-        return cls(
-            grp_id=grp_id, body=GroupKickMemberReqBody(uin=uin, permanent=permanent)
-        )
+    def build(cls, grp_id: int, uin: int, permanent: bool) -> "PBGroupKickMemberRequest":
+        return cls(grp_id=grp_id, body=GroupKickMemberReqBody(uin=uin, permanent=permanent))
 
 
 # # group_member_card.get_group_member_card_info
@@ -287,9 +271,7 @@ class PBGetGrpMemberInfoReq(ProtoStruct):
     next_key: Optional[bytes] = proto_field(15, default=None)  # base64(pb)
 
     @classmethod
-    def build(
-        cls, grp_id: int, uid="", next_key: Optional[str] = None
-    ) -> "PBGetGrpMemberInfoReq":
+    def build(cls, grp_id: int, uid="", next_key: Optional[str] = None) -> "PBGetGrpMemberInfoReq":
         assert not (uid and next_key), "invalid arguments"
         if uid:
             account = AccountInfo(uid=uid)
@@ -407,6 +389,7 @@ class _GetInfoCfg(ProtoStruct):
             "0108ab9c0108b49c0108b59c0108ba9c0108bf9c0108c59c011802"
         ),
     )
+
 
 class PBGetInfoFromUidReq(_GetInfoCfg):
     uid: list[str] = proto_field(1)

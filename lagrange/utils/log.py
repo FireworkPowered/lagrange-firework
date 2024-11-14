@@ -74,9 +74,7 @@ _Logger.get_logger = lambda self: LoggingLoggerProxy(self._root)
 
 class LoggerProvider:
     def __init__(self):
-        logging.basicConfig(
-            level="INFO", format="%(asctime)s | %(name)s[%(levelname)s]: %(message)s"
-        )
+        logging.basicConfig(level="INFO", format="%(asctime)s | %(name)s[%(levelname)s]: %(message)s")
         self._root = logging.getLogger("lagrange")
         self.loggers: dict[str, _Logger] = {
             "lagrange": _Logger(self._root),
@@ -86,9 +84,7 @@ class LoggerProvider:
         self.fork("utils")
 
     def set_level(self, level: Union[str, int]):
-        logging.basicConfig(
-            level=level, format="%(asctime)s | %(name)s[%(levelname)s]: %(message)s"
-        )
+        logging.basicConfig(level=level, format="%(asctime)s | %(name)s[%(levelname)s]: %(message)s")
         for _, logger in self.loggers.items():
             logger.set_level(level)
 
@@ -130,15 +126,11 @@ def install_loguru():
                 level = record.levelno
 
             frame, depth = inspect.currentframe(), 0
-            while frame and (
-                depth == 0 or frame.f_code.co_filename == logging.__file__
-            ):
+            while frame and (depth == 0 or frame.f_code.co_filename == logging.__file__):
                 frame = frame.f_back
                 depth += 1
 
-            logger.opt(depth=depth, exception=record.exc_info).log(
-                level, record.getMessage()
-            )
+            logger.opt(depth=depth, exception=record.exc_info).log(level, record.getMessage())
 
     logging.basicConfig(
         handlers=[LoguruHandler()],
@@ -148,9 +140,7 @@ def install_loguru():
 
     def default_filter(record):
         log_level = record["extra"].get("lagrange_log_level", "INFO")
-        levelno = (
-            logger.level(log_level).no if isinstance(log_level, str) else log_level
-        )
+        levelno = logger.level(log_level).no if isinstance(log_level, str) else log_level
         return record["level"].no >= levelno
 
     logger.remove()
@@ -174,6 +164,4 @@ def install_loguru():
 
     log.set_level = _config
 
-    _Logger.get_logger = lambda self: logger.patch(
-        lambda r: r.update(name=self.context)
-    )
+    _Logger.get_logger = lambda self: logger.patch(lambda r: r.update(name=self.context))

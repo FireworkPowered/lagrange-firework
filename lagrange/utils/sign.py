@@ -53,18 +53,14 @@ def sign_provider(upstream_url: str):
 
         params = {"cmd": cmd, "seq": seq, "src": buf.hex()}
         body = json.dumps(params).encode("utf-8")
-        headers = {
-            "Content-Type": "application/json"
-        }
+        headers = {"Content-Type": "application/json"}
         for _ in range(3):
             try:
                 start_time = time.time()
                 ret = await HttpCat.request("POST", upstream_url, body=body, header=headers)
                 if ret.code != 200:
                     raise ConnectionAbortedError(ret.code, ret.body)
-                _logger.debug(
-                    f"signed for [{cmd}:{seq}]({(time.time() - start_time) * 1000:.2f}ms)"
-                )
+                _logger.debug(f"signed for [{cmd}:{seq}]({(time.time() - start_time) * 1000:.2f}ms)")
             except Exception:
                 _logger.exception("Unexpected error on sign request:")
                 continue

@@ -31,6 +31,7 @@ class FriendRecall(FriendEvent):
     msg_id: int
     timestamp: int
 
+
 @dataclass
 class FriendRequest(FriendEvent):
     from_uid: str

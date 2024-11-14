@@ -67,10 +67,7 @@ def parse_quoted_str(string: str) -> list[dict[str, Union[str, int]]]:
     example data: 'test data <{"cmd": 1, "text": "updated"}> <{"cmd": 2}>!'
     to: [{"cmd": 1, "text": "updated"}, {"cmd": 2}]
     """
-    return [
-        json.loads(el)
-        for el in re.findall(r"<(\{.*?})>", string)
-    ]
+    return [json.loads(el) for el in re.findall(r"<(\{.*?})>", string)]
 
 
 async def msg_push_handler(client: "Client", sso: SSOPacket):
@@ -250,7 +247,7 @@ async def msg_push_handler(client: "Client", sso: SSOPacket):
                     pass
                 elif pb.flag == 21:  # 位置实时分享（不完整）
                     pass
-                    #print(sso.data.hex())
+                    # print(sso.data.hex())
                 elif pb.flag == 37:  # 群相册上传（手Q专用:(）
                     _, pb = unpack(pkg.message.buf2, PBGroupAlbumUpdate)  # 塞 就硬塞，可以把你的顾辉盒也给塞进来
                     q = dict(parse_qsl(pb.body.args))

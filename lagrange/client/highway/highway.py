@@ -184,7 +184,7 @@ class HighWaySession:
                     0x11C4 if gid else 0x11C5,
                     100,
                     encode_upload_img_req(gid, uid, fmd5, fsha1, fl, info).encode(),
-                    True
+                    True,
                 )
             ).data
         )
@@ -240,14 +240,7 @@ class HighWaySession:
     async def get_grp_img_url(self, grp_id: int, node: "IndexNode") -> str:
         ret = NTV2RichMediaResp.decode(
             (
-                await self._client.send_oidb_svc(
-                    0x11C4,
-                    200,
-                    encode_grp_img_download_req(
-                        grp_id, node
-                    ).encode(),
-                    True
-                )
+                await self._client.send_oidb_svc(0x11C4, 200, encode_grp_img_download_req(grp_id, node).encode(), True)
             ).data
         )
         body = ret.download
@@ -256,16 +249,7 @@ class HighWaySession:
 
     async def get_pri_img_url(self, uid: str, node: IndexNode) -> str:
         ret = NTV2RichMediaResp.decode(
-            (
-                await self._client.send_oidb_svc(
-                    0x11C5,
-                    200,
-                    encode_pri_img_download_req(
-                        uid, node
-                    ).encode(),
-                    True
-                )
-            ).data
+            (await self._client.send_oidb_svc(0x11C5, 200, encode_pri_img_download_req(uid, node).encode(), True)).data
         )
         body = ret.download
         assert body, "Internal error, check log for more detail"
@@ -283,9 +267,8 @@ class HighWaySession:
                 await self._client.send_oidb_svc(
                     0x126E if gid else 0x126D,
                     100,
-                    encode_audio_upload_req(
-                        gid, uid, fmd5, fsha1, fl, info.seconds
-                    ).encode(), True
+                    encode_audio_upload_req(gid, uid, fmd5, fsha1, fl, info.seconds).encode(),
+                    True,
                 )
             ).data
         )
@@ -348,11 +331,7 @@ class HighWaySession:
         ret = NTV2RichMediaResp.decode(
             (
                 await self._client.send_oidb_svc(
-                    0x126E if gid else 0x126D,
-                    200,
-                    encode_audio_down_req(
-                        audio_file_key, gid, uid
-                    ).encode(), True
+                    0x126E if gid else 0x126D, 200, encode_audio_down_req(audio_file_key, gid, uid).encode(), True
                 )
             ).data
         )
@@ -371,7 +350,6 @@ class HighWaySession:
             raise ConnectionError(http.code, http.status)
 
         return BytesIO(http.decompressed_body)
-
 
     # async def upload_video(self, file: BinaryIO, thumb: BinaryIO, gid: int) -> VideoElement:
     #     thumb_md5, thumb_size = calc_file_md5_and_length(thumb)

@@ -82,9 +82,7 @@ class _TEA:
         ret = plain
         precrypt = text[0:8]
         for i in range(8, data_len, 8):
-            x = _xor(
-                _tea_decipher(_xor(text[i : i + 8], plain), self.secret_key), precrypt
-            )  # 跳过了前8个字节
+            x = _xor(_tea_decipher(_xor(text[i : i + 8], plain), self.secret_key), precrypt)  # 跳过了前8个字节
             plain = _xor(x, precrypt)
             precrypt = text[i : i + 8]
             ret += x

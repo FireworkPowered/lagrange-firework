@@ -27,18 +27,12 @@ class HttpResponse:
             elif self.header["Content-Encoding"] == "deflate":
                 return zlib.decompress(self.body)
             else:
-                raise TypeError(
-                    "Unsuppoted compress type:", self.header["Content-Encoding"]
-                )
+                raise TypeError("Unsuppoted compress type:", self.header["Content-Encoding"])
         else:
             return self.body
 
     def json(self, verify_type=True):
-        if (
-            "Content-Type" in self.header
-            and self.header["Content-Type"].find("application/json") == -1
-            and verify_type
-        ):
+        if "Content-Type" in self.header and self.header["Content-Type"].find("application/json") == -1 and verify_type:
             raise TypeError(self.header.get("Content-Type", "NotSet"))
         return json.loads(self.decompressed_body)
 
@@ -68,9 +62,7 @@ class HttpCat:
         self.header["Connection"] = "keep-alive"
 
     @classmethod
-    def _encode_header(
-        cls, method: str, path: str, header: dict[str, str], *, protocol="HTTP/1.1"
-    ) -> bytearray:
+    def _encode_header(cls, method: str, path: str, header: dict[str, str], *, protocol="HTTP/1.1") -> bytearray:
         ret = bytearray()
         ret += f"{method.upper()} {path} {protocol}\r\n".encode()
         for k, v in header.items():
@@ -142,9 +134,7 @@ class HttpCat:
                     header[k.title()] = v
             else:
                 break
-        return HttpResponse(
-            int(code), status, header, await cls._read_all(header, reader), cookies
-        )
+        return HttpResponse(int(code), status, header, await cls._read_all(header, reader), cookies)
 
     @classmethod
     @overload
@@ -160,8 +150,7 @@ class HttpCat:
         cookies: Optional[dict[str, str]] = None,
         wait_rsp: Literal[True] = True,
         loop: Optional[asyncio.AbstractEventLoop] = None,
-    ) -> HttpResponse:
-        ...
+    ) -> HttpResponse: ...
 
     @classmethod
     @overload
@@ -177,8 +166,7 @@ class HttpCat:
         cookies: Optional[dict[str, str]] = None,
         wait_rsp: Literal[False] = False,
         loop: Optional[asyncio.AbstractEventLoop] = None,
-    ) -> None:
-        ...
+    ) -> None: ...
 
     @classmethod
     async def _request(
@@ -233,19 +221,13 @@ class HttpCat:
     ) -> HttpResponse:
         address, path, ssl = cls._parse_url(url)
         if conn_timeout:
-            reader, writer = await asyncio.wait_for(
-                asyncio.open_connection(*address, ssl=ssl), conn_timeout
-            )
+            reader, writer = await asyncio.wait_for(asyncio.open_connection(*address, ssl=ssl), conn_timeout)
         else:
             reader, writer = await asyncio.open_connection(*address, ssl=ssl)
-        resp = await cls._request(
-            address[0], reader, writer, method, path, header, body, cookies, True, loop
-        )
+        resp = await cls._request(address[0], reader, writer, method, path, header, body, cookies, True, loop)
         _logger.debug(f"request({method})[{resp.code}]: {url}")
         if resp.code // 100 == 3 and follow_redirect:
-            return await cls.request(
-                method, resp.header["Location"], header, body, cookies
-            )
+            return await cls.request(method, resp.header["Location"], header, body, cookies)
         else:
             return resp
 
@@ -261,9 +243,7 @@ class HttpCat:
                     conn_timeout,
                 )
             else:
-                reader, writer = await asyncio.open_connection(
-                    self.host, self.port, ssl=self.ssl
-                )
+                reader, writer = await asyncio.open_connection(self.host, self.port, ssl=self.ssl)
             self._reader = reader
             self._writer = writer
             _logger.debug(f"connected to {self.host}:{self.port}")

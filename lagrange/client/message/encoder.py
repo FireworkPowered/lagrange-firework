@@ -62,9 +62,7 @@ def build_message(msg_chain: list[Element], compatible=True) -> RichText:
                     Elems(
                         text=PBText(
                             string=msg.text,
-                            attr6_buf=struct.pack(
-                                "!xb3xbbI2x", 1, len(msg.text), 0, msg.uin
-                            ),
+                            attr6_buf=struct.pack("!xb3xbbI2x", 1, len(msg.text), 0, msg.uin),
                             pb_reserved={3: 2, 4: 0, 5: 0, 9: msg.uid, 11: 0},
                         )
                     )
@@ -87,9 +85,7 @@ def build_message(msg_chain: list[Element], compatible=True) -> RichText:
                         Elems(
                             text=PBText(
                                 string=text,
-                                attr6_buf=struct.pack(
-                                    "!xb3xbbI2x", 1, len(text), 0, msg.uin
-                                ),
+                                attr6_buf=struct.pack("!xb3xbbI2x", 1, len(text), 0, msg.uin),
                                 pb_reserved={3: 2, 4: 0, 5: 0, 9: msg.uid, 11: 0},
                             )
                         )
@@ -97,9 +93,7 @@ def build_message(msg_chain: list[Element], compatible=True) -> RichText:
             elif isinstance(msg, Emoji):
                 msg_pb.append(Elems(face=Face(index=msg.id)))
             elif isinstance(msg, Json):
-                msg_pb.append(
-                    Elems(mini_app=MiniApp(template=b"\x01" + zlib.compress(msg.raw)))
-                )
+                msg_pb.append(Elems(mini_app=MiniApp(template=b"\x01" + zlib.compress(msg.raw))))
             elif isinstance(msg, Image):
                 if msg.id:  # customface
                     msg_pb.append(
@@ -116,24 +110,15 @@ def build_message(msg_chain: list[Element], compatible=True) -> RichText:
                                 size=msg.size,
                                 args=ImageReserveArgs(
                                     is_emoji=msg.is_emoji,
-                                    display_name=msg.display_name
-                                    or ("[动画表情]" if msg.is_emoji else "[图片]"),
+                                    display_name=msg.display_name or ("[动画表情]" if msg.is_emoji else "[图片]"),
                                 ),
                             )
                         )
                     )
                 else:
-                    msg_pb.append(
-                        Elems(not_online_image=NotOnlineImage.decode(msg.qmsg))
-                    )
+                    msg_pb.append(Elems(not_online_image=NotOnlineImage.decode(msg.qmsg)))
             elif isinstance(msg, Service):
-                msg_pb.append(
-                    Elems(
-                        rich_msg=RichMsg(
-                            template=b"\x01" + zlib.compress(msg.raw), service_id=msg.id
-                        )
-                    )
-                )
+                msg_pb.append(Elems(rich_msg=RichMsg(template=b"\x01" + zlib.compress(msg.raw), service_id=msg.id)))
             elif isinstance(msg, Raw):
                 msg_pb.append(Elems(open_data=OpenData(data=msg.data)))
             elif isinstance(msg, Reaction):
@@ -180,19 +165,15 @@ def build_message(msg_chain: list[Element], compatible=True) -> RichText:
                     )
                 )
             elif isinstance(msg, GreyTips):
-                content = json.dumps({
-                    "gray_tip": msg.text,
-                    "object_type": 3,
-                    "sub_type": 2,
-                    "type": 4,
-                })
-                msg_pb.append(
-                    Elems(
-                        general_flags=GeneralFlags(
-                            PbReserve=PBGreyTips.build(content)
-                        )
-                    )
+                content = json.dumps(
+                    {
+                        "gray_tip": msg.text,
+                        "object_type": 3,
+                        "sub_type": 2,
+                        "type": 4,
+                    }
                 )
+                msg_pb.append(Elems(general_flags=GeneralFlags(PbReserve=PBGreyTips.build(content))))
             elif isinstance(msg, Text):
                 msg_pb.append(Elems(text=PBText(string=msg.text)))
             elif isinstance(msg, Poke):

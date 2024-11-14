@@ -68,8 +68,7 @@ def proto_field(
     repr: bool = True,
     metadata: Optional[Mapping[Any, Any]] = None,
     kw_only: bool = ...,
-) -> T:
-    ...
+) -> T: ...
 
 
 @overload
@@ -81,8 +80,7 @@ def proto_field(
     repr: bool = True,
     metadata: Optional[Mapping[Any, Any]] = None,
     kw_only: bool = ...,
-) -> T:
-    ...
+) -> T: ...
 
 
 @overload
@@ -93,8 +91,7 @@ def proto_field(
     repr: bool = True,
     metadata: Optional[Mapping[Any, Any]] = None,
     kw_only: bool = ...,
-) -> Any:
-    ...
+) -> Any: ...
 
 
 def proto_field(
@@ -184,9 +181,7 @@ class ProtoStruct:
                 if __from_raw:
                     value = _decode(field.type_without_optional, value)
                 if not check_type(value, field.type):
-                    raise TypeError(
-                        f"'{value}' is not a instance of type '{field.type}'"
-                    )
+                    raise TypeError(f"'{value}' is not a instance of type '{field.type}'")
                 setattr(self, name, value)
             else:
                 if (de := field.get_default()) is not MISSING:
@@ -208,12 +203,12 @@ class ProtoStruct:
                 for f in base_fields.values():
                     fields[f.name] = f
 
-        cls_annotations = cls.__dict__.get('__annotations__', {})
+        cls_annotations = cls.__dict__.get("__annotations__", {})
         cls_fields: list[ProtoField] = []
         for name, typ in cls_annotations.items():
             field = getattr(cls, name, MISSING)
             if field is MISSING:
-                raise TypeError(f'{name!r} should define its proto_field!')
+                raise TypeError(f"{name!r} should define its proto_field!")
             field.ensure_annotation(name, typ)
             if field._unevaluated:
                 _unevaluated_classes.add(cls)
@@ -226,7 +221,7 @@ class ProtoStruct:
 
         for name, value in cls.__dict__.items():
             if isinstance(value, ProtoField) and not name in cls_annotations:
-                raise TypeError(f'{name!r} is a proto_field but has no type annotation')
+                raise TypeError(f"{name!r} is a proto_field but has no type annotation")
 
         cls.__proto_fields__ = fields
 
@@ -283,11 +278,7 @@ class ProtoStruct:
             return None  # type: ignore
         pb_dict: Proto = proto_decode(data, 0).proto
 
-        kwargs = {
-            field.name: pb_dict.pop(field.tag)
-            for field in cls.__proto_fields__.values()
-            if field.tag in pb_dict
-        }
+        kwargs = {field.name: pb_dict.pop(field.tag) for field in cls.__proto_fields__.values() if field.tag in pb_dict}
 
         if pb_dict and cls.__proto_debug__:  # unhandled tags
             print(f"DEBUG: unhandled tags '{pb_dict}' on {cls}")

@@ -21,9 +21,7 @@ class Events:
         if event not in self._handle_map:
             self._handle_map[event] = handler
         else:
-            raise AssertionError(
-                f"Event already subscribed to {self._handle_map[event]}"
-            )
+            raise AssertionError(f"Event already subscribed to {self._handle_map[event]}")
 
     def unsubscribe(self, event: type["BaseEvent"]):
         return self._handle_map.pop(event)
@@ -32,9 +30,7 @@ class Events:
         try:
             await handler(client, event)
         except Exception as e:
-            log.root.exception(
-                f"Unhandled exception on task {event}", exc_info=e
-            )
+            log.root.exception(f"Unhandled exception on task {event}", exc_info=e)
 
     def emit(self, event: "BaseEvent", client: "Client"):
         typ = type(event)

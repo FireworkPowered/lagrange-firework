@@ -39,7 +39,5 @@ class PacketBuilder(Builder):
         self._buffer += v
         return self
 
-    def write_string(
-        self, s: str, prefix: LENGTH_PREFIX = "u32", with_prefix: bool = True
-    ) -> Self:
+    def write_string(self, s: str, prefix: LENGTH_PREFIX = "u32", with_prefix: bool = True) -> Self:
         return self.write_bytes(s.encode(), prefix=prefix, with_prefix=with_prefix)

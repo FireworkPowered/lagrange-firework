@@ -92,6 +92,6 @@ app_list: AppInfoDict = {
         app_client_version=13172,
         main_sigmap=169742560,
         sub_sigmap=0,
-        nt_login_type=5
-    )
+        nt_login_type=5,
+    ),
 }

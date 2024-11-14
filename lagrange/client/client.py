@@ -493,17 +493,13 @@ class Client(BaseClient):
             raise AssertionError(rsp.ret_code, rsp.err_msg)
 
     @overload
-    async def get_user_info(self, uid_or_uin: Union[str, int], /) -> UserInfo:
-        ...
+    async def get_user_info(self, uid_or_uin: Union[str, int], /) -> UserInfo: ...
 
     @overload
-    async def get_user_info(self, uid_or_uin: Union[list[str], list[int]], /) -> list[UserInfo]:
-        ...
+    async def get_user_info(self, uid_or_uin: Union[list[str], list[int]], /) -> list[UserInfo]: ...
 
     async def get_user_info(
-        self,
-        uid_or_uin: Union[str, int, list[str], list[int]],
-        /
+        self, uid_or_uin: Union[str, int, list[str], list[int]], /
     ) -> Union[UserInfo, list[UserInfo]]:
         if isinstance(uid_or_uin, list):
             assert uid_or_uin, "empty uid or uin"

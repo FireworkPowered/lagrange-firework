@@ -32,7 +32,7 @@ class ProtoDecoded:
             data = self.proto
             for f in field:
                 data = data[f]  # type: ignore
-            return data # type: ignore
+            return data  # type: ignore
 
 
 class ProtoBuilder(Builder):

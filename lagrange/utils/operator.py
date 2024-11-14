@@ -5,13 +5,11 @@ T = TypeVar("T")
 
 
 @overload
-def unpack_dict(pd: dict, rule: str) -> Any:
-    ...
+def unpack_dict(pd: dict, rule: str) -> Any: ...
 
 
 @overload
-def unpack_dict(pd: dict, rule: str, default: T) -> Union[Any, T]:
-    ...
+def unpack_dict(pd: dict, rule: str, default: T) -> Union[Any, T]: ...
 
 
 def unpack_dict(pd: dict, rule: str, default: Union[T, None] = None) -> Union[Any, T]:

@@ -19,12 +19,8 @@ class _LoginErrField(ProtoStruct, debug=True):
 
 class _LoginRspHead(ProtoStruct, debug=True):
     account: dict = proto_field(1)  # {1: uin}
-    device: dict = proto_field(
-        2
-    )  # {1: app.os, 2: device_name, 3: nt_login_type, 4: bytes(guid)}
-    system: dict = proto_field(
-        3
-    )  # {1: device.kernel_version, 2: app.app_id, 3: app.package_name}
+    device: dict = proto_field(2)  # {1: app.os, 2: device_name, 3: nt_login_type, 4: bytes(guid)}
+    system: dict = proto_field(3)  # {1: device.kernel_version, 2: app.app_id, 3: app.package_name}
     error: Optional[_LoginErrField] = proto_field(4, default=None)
     cookies: Optional[_LoginCookies] = proto_field(5, default=None)
 

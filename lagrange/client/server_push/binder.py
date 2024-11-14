@@ -12,9 +12,7 @@ if TYPE_CHECKING:
 class PushDeliver:
     def __init__(self, client: "Client"):
         self._client = client
-        self._handle_map: dict[
-            str, Callable[["Client", SSOPacket], Coroutine[None, None, Any]]
-        ] = {}
+        self._handle_map: dict[str, Callable[["Client", SSOPacket], Coroutine[None, None, Any]]] = {}
 
     def subscribe(self, cmd: str, func: Callable[["Client", SSOPacket], Coroutine[None, None, Any]]):
         self._handle_map[cmd] = func

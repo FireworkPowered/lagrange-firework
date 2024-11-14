@@ -61,9 +61,7 @@ class ClientNetwork(Connection):
         await self.writer.drain()
 
     @overload
-    async def send(
-        self, buf: bytes, wait_seq: Literal[-1], timeout=10
-    ) -> None: ...
+    async def send(self, buf: bytes, wait_seq: Literal[-1], timeout=10) -> None: ...
 
     @overload
     async def send(self, buf: bytes, wait_seq: int, timeout=10) -> SSOPacket: ...  # type: ignore
@@ -124,28 +122,18 @@ class ClientNetwork(Connection):
         packet = parse_sso_frame(sso_body, enc_flag == 2)
 
         if packet.seq > 0:  # uni rsp
-            log.network.debug(
-                f"{packet.seq}({packet.ret_code})-> {packet.cmd or packet.extra}"
-            )
+            log.network.debug(f"{packet.seq}({packet.ret_code})-> {packet.cmd or packet.extra}")
             if packet.ret_code != 0 and packet.seq in self._wait_fut_map:
-                return self._wait_fut_map[packet.seq].set_exception(
-                    AssertionError(packet.ret_code, packet.extra)
-                )
+                return self._wait_fut_map[packet.seq].set_exception(AssertionError(packet.ret_code, packet.extra))
             elif packet.ret_code != 0:
-                return log.network.error(
-                    f"Unexpected error on sso layer: {packet.ret_code}: {packet.extra}"
-                )
+                return log.network.error(f"Unexpected error on sso layer: {packet.ret_code}: {packet.extra}")
 
             if packet.seq not in self._wait_fut_map:
-                log.network.warning(
-                    f"Unknown packet: {packet.cmd}({packet.seq}), ignore"
-                )
+                log.network.warning(f"Unknown packet: {packet.cmd}({packet.seq}), ignore")
             else:
                 self._wait_fut_map[packet.seq].set_result(packet)
         elif packet.seq == 0:
             raise AssertionError(packet.ret_code, packet.extra)
         else:  # server pushed
-            log.network.debug(
-                f"{packet.seq}({packet.ret_code})<- {packet.cmd or packet.extra}"
-            )
+            log.network.debug(f"{packet.seq}({packet.ret_code})<- {packet.cmd or packet.extra}")
             await self._push_store.put(packet)

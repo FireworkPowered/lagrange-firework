@@ -45,9 +45,7 @@ class BaseClient:
         app_info: AppInfo,
         device_info: DeviceInfo,
         sig_info: SigInfo,
-        sign_provider: Optional[
-            Callable[[str, int, bytes], Coroutine[None, None, dict]]
-        ] = None,
+        sign_provider: Optional[Callable[[str, int, bytes], Coroutine[None, None, dict]]] = None,
         use_ipv6=True,
     ):
         if uin and not sig_info.uin:
@@ -126,9 +124,7 @@ class BaseClient:
             if not err_count:
                 await asyncio.sleep(self._heartbeat_interval)
             try:
-                log.network.info(
-                    f"{await self.sso_heartbeat(True, 5) * 1000:.2f}ms to server"
-                )
+                log.network.info(f"{await self.sso_heartbeat(True, 5) * 1000:.2f}ms to server")
             except asyncio.TimeoutError:
                 if err_count < 3:
                     log.network.warning("heartbeat timeout")
@@ -182,19 +178,13 @@ class BaseClient:
         return self._network.using_v6
 
     @overload
-    async def send_uni_packet(
-        self, cmd: str, buf: bytes, *, timeout=10
-    ) -> SSOPacket: ...
+    async def send_uni_packet(self, cmd: str, buf: bytes, *, timeout=10) -> SSOPacket: ...
 
     @overload
-    async def send_uni_packet(
-        self, cmd: str, buf: bytes, send_only: Literal[False], timeout=10
-    ) -> SSOPacket: ...
+    async def send_uni_packet(self, cmd: str, buf: bytes, send_only: Literal[False], timeout=10) -> SSOPacket: ...
 
     @overload
-    async def send_uni_packet(
-        self, cmd: str, buf: bytes, send_only: Literal[True], timeout=10
-    ) -> None: ...
+    async def send_uni_packet(self, cmd: str, buf: bytes, send_only: Literal[True], timeout=10) -> None: ...
 
     async def send_uni_packet(self, cmd, buf, send_only: bool = False, timeout=10):
         seq = self.get_seq()
@@ -354,9 +344,7 @@ class BaseClient:
             await asyncio.sleep(refresh_interval)
             ret_last = await self.get_qrcode_result()
             if ret_code != ret_last:
-                log.login.info(
-                    f"qrcode state changed: {ret_code.name}->{ret_last.name}"
-                )
+                log.login.info(f"qrcode state changed: {ret_code.name}->{ret_last.name}")
                 ret_code = ret_last
             if not ret_code.waitable:
                 if not ret_code.success:
@@ -389,9 +377,7 @@ class BaseClient:
             )
         ).pack()
 
-        response = await self.send_uni_packet(
-            "wtlogin.login", build_login_packet(self.uin, "wtlogin.login", app, body)
-        )
+        response = await self.send_uni_packet("wtlogin.login", build_login_packet(self.uin, "wtlogin.login", app, body))
 
         return decode_login_response(response.data, self._sig)
 
