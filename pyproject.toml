@@ -33,6 +33,9 @@ loguru = [
 rtea = [
     "rtea @ git+https://github.com/FireworkPowered/rtea",
 ]
+ftea = [
+    "ftea @ git+https://github.com/synodriver/ftea",
+]
 
 [tool.pdm]
 distribution = true

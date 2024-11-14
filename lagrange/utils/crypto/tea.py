@@ -103,21 +103,19 @@ def qqtea_decrypt(text: bytes, key: bytes) -> bytes:
     return _TEA(key).decrypt(text)
 
 
-# try:
-#     from ftea import TEA as FTEA
-
-#     def qqtea_encrypt(data: bytes, key: bytes) -> bytes:
-#         return FTEA(key).encrypt_qq(data)
-
-#     def qqtea_decrypt(data: bytes, key: bytes) -> bytes:
-#         return FTEA(key).decrypt_qq(data)
-
-# except ImportError:
-#     # Leave the pure Python version in place.
-#     pass
-
-
 try:
-    from rtea import qqtea_decrypt, qqtea_encrypt
+    from ftea import TEA as FTEA
+
+    def qqtea_encrypt(text: bytes, key: bytes) -> bytes:
+        return FTEA(key).encrypt_qq(text)
+
+    def qqtea_decrypt(text: bytes, key: bytes) -> bytes:
+        return FTEA(key).decrypt_qq(text)
+
 except ImportError:
-    pass
+    # Leave the pure Python version in place.
+
+    try:
+        from rtea import qqtea_decrypt, qqtea_encrypt
+    except ImportError:
+        pass
